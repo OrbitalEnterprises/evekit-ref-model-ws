@@ -24,13 +24,11 @@ import enterprises.orbital.evekit.model.eve.CharacterVictoryPointStat;
 import enterprises.orbital.evekit.model.eve.ConquerableStation;
 import enterprises.orbital.evekit.model.eve.CorporationKillStat;
 import enterprises.orbital.evekit.model.eve.CorporationVictoryPointStat;
-import enterprises.orbital.evekit.model.eve.ErrorType;
 import enterprises.orbital.evekit.model.eve.FactionKillStat;
 import enterprises.orbital.evekit.model.eve.FactionStats;
 import enterprises.orbital.evekit.model.eve.FactionVictoryPointStat;
 import enterprises.orbital.evekit.model.eve.FactionWar;
 import enterprises.orbital.evekit.model.eve.FactionWarSummary;
-import enterprises.orbital.evekit.model.eve.RefType;
 import enterprises.orbital.evekit.model.eve.RequiredSkill;
 import enterprises.orbital.evekit.model.eve.SkillBonus;
 import enterprises.orbital.evekit.model.eve.SkillGroup;
@@ -671,76 +669,6 @@ public class ModelEveWS {
     }
   }
 
-  @Path("/error_type")
-  @GET
-  @ApiOperation(
-      value = "Get error type list")
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              code = 200,
-              message = "list of requested error types",
-              response = ErrorType.class,
-              responseContainer = "array"),
-          @ApiResponse(
-              code = 400,
-              message = "invalid attribute selector",
-              response = ServiceError.class),
-          @ApiResponse(
-              code = 500,
-              message = "internal service error",
-              response = ServiceError.class),
-      })
-  public Response getErrorTypes(
-                                @Context HttpServletRequest request,
-                                @QueryParam("at") @DefaultValue(
-                                    value = "{ values: [ \"9223372036854775806\" ] }") @ApiParam(
-                                        name = "at",
-                                        required = false,
-                                        defaultValue = "{ values: [ \"9223372036854775806\" ] }",
-                                        value = "Model lifeline selector (defaults to current live data)") AttributeSelector at,
-                                @QueryParam("contid") @DefaultValue("-1") @ApiParam(
-                                    name = "contid",
-                                    required = false,
-                                    defaultValue = "-1",
-                                    value = "Continuation ID for paged results") long contid,
-                                @QueryParam("maxresults") @DefaultValue("1000") @ApiParam(
-                                    name = "maxresults",
-                                    required = false,
-                                    defaultValue = "1000",
-                                    value = "Maximum number of results to retrieve") int maxresults,
-                                @QueryParam("reverse") @DefaultValue("false") @ApiParam(
-                                    name = "reverse",
-                                    required = false,
-                                    defaultValue = "false",
-                                    value = "If true, page backwards (results less than contid) with results in descending order (by cid)") boolean reverse,
-                                @QueryParam("errorCode") @DefaultValue(
-                                    value = "{ any: true }") @ApiParam(
-                                        name = "errorCode",
-                                        required = false,
-                                        defaultValue = "{ any: true }",
-                                        value = "Error code selector") AttributeSelector errorCode,
-                                @QueryParam("errorText") @DefaultValue(
-                                    value = "{ any: true }") @ApiParam(
-                                        name = "errorText",
-                                        required = false,
-                                        defaultValue = "{ any: true }",
-                                        value = "Error text selector") AttributeSelector errorText) {
-    ServiceUtil.sanitizeAttributeSelector(at, errorCode, errorText);
-    maxresults = Math.min(1000, maxresults);
-    try {
-      List<ErrorType> result = ErrorType.accessQuery(contid, maxresults, reverse, at, errorCode, errorText);
-      for (RefCachedData next : result) {
-        next.prepareDates();
-      }
-      // Finish
-      return ServiceUtil.finishRef(OrbitalProperties.getCurrentTime(), RefData.getRefData().getErrorListExpiry(), result, request);
-    } catch (NumberFormatException e) {
-      ServiceError errMsg = new ServiceError(Status.BAD_REQUEST.getStatusCode(), "An attribute selector contained an illegal value");
-      return Response.status(Status.BAD_REQUEST).entity(errMsg).build();
-    }
-  }
-
   @Path("/faction_kill_stat")
   @GET
   @ApiOperation(
@@ -1197,76 +1125,6 @@ public class ModelEveWS {
       }
       // Finish
       return ServiceUtil.finishRef(OrbitalProperties.getCurrentTime(), RefData.getRefData().getFacWarStatsExpiry(), result, request);
-    } catch (NumberFormatException e) {
-      ServiceError errMsg = new ServiceError(Status.BAD_REQUEST.getStatusCode(), "An attribute selector contained an illegal value");
-      return Response.status(Status.BAD_REQUEST).entity(errMsg).build();
-    }
-  }
-
-  @Path("/ref_type")
-  @GET
-  @ApiOperation(
-      value = "Get reference types list")
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              code = 200,
-              message = "list of requested reference types",
-              response = RefType.class,
-              responseContainer = "array"),
-          @ApiResponse(
-              code = 400,
-              message = "invalid attribute selector",
-              response = ServiceError.class),
-          @ApiResponse(
-              code = 500,
-              message = "internal service error",
-              response = ServiceError.class),
-      })
-  public Response getRefTypes(
-                              @Context HttpServletRequest request,
-                              @QueryParam("at") @DefaultValue(
-                                  value = "{ values: [ \"9223372036854775806\" ] }") @ApiParam(
-                                      name = "at",
-                                      required = false,
-                                      defaultValue = "{ values: [ \"9223372036854775806\" ] }",
-                                      value = "Model lifeline selector (defaults to current live data)") AttributeSelector at,
-                              @QueryParam("contid") @DefaultValue("-1") @ApiParam(
-                                  name = "contid",
-                                  required = false,
-                                  defaultValue = "-1",
-                                  value = "Continuation ID for paged results") long contid,
-                              @QueryParam("maxresults") @DefaultValue("1000") @ApiParam(
-                                  name = "maxresults",
-                                  required = false,
-                                  defaultValue = "1000",
-                                  value = "Maximum number of results to retrieve") int maxresults,
-                              @QueryParam("reverse") @DefaultValue("false") @ApiParam(
-                                  name = "reverse",
-                                  required = false,
-                                  defaultValue = "false",
-                                  value = "If true, page backwards (results less than contid) with results in descending order (by cid)") boolean reverse,
-                              @QueryParam("refTypeID") @DefaultValue(
-                                  value = "{ any: true }") @ApiParam(
-                                      name = "refTypeID",
-                                      required = false,
-                                      defaultValue = "{ any: true }",
-                                      value = "Reference type ID selector") AttributeSelector refTypeID,
-                              @QueryParam("refTypeName") @DefaultValue(
-                                  value = "{ any: true }") @ApiParam(
-                                      name = "refTypeName",
-                                      required = false,
-                                      defaultValue = "{ any: true }",
-                                      value = "Reference type name selector") AttributeSelector refTypeName) {
-    ServiceUtil.sanitizeAttributeSelector(at, refTypeID, refTypeName);
-    maxresults = Math.min(1000, maxresults);
-    try {
-      List<RefType> result = RefType.accessQuery(contid, maxresults, reverse, at, refTypeID, refTypeName);
-      for (RefCachedData next : result) {
-        next.prepareDates();
-      }
-      // Finish
-      return ServiceUtil.finishRef(OrbitalProperties.getCurrentTime(), RefData.getRefData().getRefTypeExpiry(), result, request);
     } catch (NumberFormatException e) {
       ServiceError errMsg = new ServiceError(Status.BAD_REQUEST.getStatusCode(), "An attribute selector contained an illegal value");
       return Response.status(Status.BAD_REQUEST).entity(errMsg).build();
