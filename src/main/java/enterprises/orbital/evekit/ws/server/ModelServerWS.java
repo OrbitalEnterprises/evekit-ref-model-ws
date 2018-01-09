@@ -3,7 +3,7 @@ package enterprises.orbital.evekit.ws.server;
 import enterprises.orbital.evekit.model.AttributeSelector;
 import enterprises.orbital.evekit.model.ESIRefSyncEndpoint;
 import enterprises.orbital.evekit.model.server.ServerStatus;
-import enterprises.orbital.evekit.ws.HandlerUtil;
+import enterprises.orbital.evekit.ws.RefHandlerUtil;
 import enterprises.orbital.evekit.ws.ServiceError;
 import io.swagger.annotations.*;
 
@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-import static enterprises.orbital.evekit.ws.HandlerUtil.handleStandardExpiry;
+import static enterprises.orbital.evekit.ws.RefHandlerUtil.handleStandardExpiry;
 
 @Path("/ws/v1/server")
 @Consumes({
@@ -90,7 +90,7 @@ public class ModelServerWS {
           name = "vip",
           defaultValue = "{ any: true }",
           value = "Server vip selector") AttributeSelector vip) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<ServerStatus>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<ServerStatus>() {
 
       @Override
       public List<ServerStatus> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,

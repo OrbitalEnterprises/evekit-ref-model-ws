@@ -4,7 +4,7 @@ import enterprises.orbital.evekit.model.AttributeSelector;
 import enterprises.orbital.evekit.model.ESIRefSyncEndpoint;
 import enterprises.orbital.evekit.model.alliance.Alliance;
 import enterprises.orbital.evekit.model.faction.*;
-import enterprises.orbital.evekit.ws.HandlerUtil;
+import enterprises.orbital.evekit.ws.RefHandlerUtil;
 import enterprises.orbital.evekit.ws.ServiceError;
 import io.swagger.annotations.*;
 
@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-import static enterprises.orbital.evekit.ws.HandlerUtil.handleStandardExpiry;
+import static enterprises.orbital.evekit.ws.RefHandlerUtil.handleStandardExpiry;
 
 @Path("/ws/v1/faction")
 @Consumes({
@@ -86,7 +86,7 @@ public class ModelFactionWS {
           name = "kills",
           defaultValue = "{ any: true }",
           value = "Kill count selector") AttributeSelector kills) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<CharacterKillStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<CharacterKillStat>() {
 
       @Override
       public List<CharacterKillStat> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -158,7 +158,7 @@ public class ModelFactionWS {
           name = "victoryPoints",
           defaultValue = "{ any: true }",
           value = "Victory points selector") AttributeSelector victoryPoints) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<CharacterVictoryPointStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<CharacterVictoryPointStat>() {
 
       @Override
       public List<CharacterVictoryPointStat> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -230,7 +230,7 @@ public class ModelFactionWS {
           name = "kills",
           defaultValue = "{ any: true }",
           value = "Kill count selector") AttributeSelector kills) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<CorporationKillStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<CorporationKillStat>() {
 
       @Override
       public List<CorporationKillStat> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -302,7 +302,7 @@ public class ModelFactionWS {
           name = "victoryPoints",
           defaultValue = "{ any: true }",
           value = "Victory points selector") AttributeSelector victoryPoints) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<CorporationVictoryPointStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<CorporationVictoryPointStat>() {
 
       @Override
       public List<CorporationVictoryPointStat> getList(long contid, int maxresults, boolean reverse,
@@ -375,7 +375,7 @@ public class ModelFactionWS {
           name = "kills",
           defaultValue = "{ any: true }",
           value = "Kill count selector") AttributeSelector kills) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<FactionKillStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<FactionKillStat>() {
 
       @Override
       public List<FactionKillStat> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -477,7 +477,7 @@ public class ModelFactionWS {
           name = "victoryPointsYesterday",
           defaultValue = "{ any: true }",
           value = "Yesterday's victory point count selector") AttributeSelector victoryPointsYesterday) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<FactionStats>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<FactionStats>() {
 
       @Override
       public List<FactionStats> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -555,7 +555,7 @@ public class ModelFactionWS {
           name = "victoryPoints",
           defaultValue = "{ any: true }",
           value = "Victory points selector") AttributeSelector victoryPoints) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<FactionVictoryPointStat>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<FactionVictoryPointStat>() {
 
       @Override
       public List<FactionVictoryPointStat> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -622,7 +622,7 @@ public class ModelFactionWS {
           name = "factionID",
           defaultValue = "{ any: true }",
           value = "Faction ID selector") AttributeSelector factionID) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<FactionWar>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<FactionWar>() {
 
       @Override
       public List<FactionWar> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -708,7 +708,7 @@ public class ModelFactionWS {
           name = "contested",
           defaultValue = "{ any: true }",
           value = "Contested selector") AttributeSelector contested) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<FactionWarSystem>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<FactionWarSystem>() {
 
       @Override
       public List<FactionWarSystem> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,

@@ -6,7 +6,7 @@ import enterprises.orbital.evekit.model.sov.SovereigntyCampaign;
 import enterprises.orbital.evekit.model.sov.SovereigntyCampaignParticipant;
 import enterprises.orbital.evekit.model.sov.SovereigntyMap;
 import enterprises.orbital.evekit.model.sov.SovereigntyStructure;
-import enterprises.orbital.evekit.ws.HandlerUtil;
+import enterprises.orbital.evekit.ws.RefHandlerUtil;
 import enterprises.orbital.evekit.ws.ServiceError;
 import io.swagger.annotations.*;
 
@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-import static enterprises.orbital.evekit.ws.HandlerUtil.handleStandardExpiry;
+import static enterprises.orbital.evekit.ws.RefHandlerUtil.handleStandardExpiry;
 
 @Path("/ws/v1/sov")
 @Consumes({
@@ -118,7 +118,7 @@ public class ModelSovWS {
           name = "attackersScore",
           defaultValue = "{ any: true }",
           value = "Attacker score selector") AttributeSelector attackersScore) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<SovereigntyCampaign>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<SovereigntyCampaign>() {
 
                                                    @Override
                                                    public List<SovereigntyCampaign> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -141,7 +141,7 @@ public class ModelSovWS {
                                                      return handleStandardExpiry(SovereigntyCampaign.class, ESIRefSyncEndpoint.REF_SOV_CAMPAIGN);
                                                    }
                                                  }, request, campaignID, structureID, systemID, constellationID, eventType,
-                                                 startTime, defenderID, defenderScore, attackersScore);
+                                                    startTime, defenderID, defenderScore, attackersScore);
   }
 
   @Path("/sov_campaign_part")
@@ -198,7 +198,7 @@ public class ModelSovWS {
           name = "score",
           defaultValue = "{ any: true }",
           value = "Participant score selector") AttributeSelector score) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<SovereigntyCampaignParticipant>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<SovereigntyCampaignParticipant>() {
 
       @Override
       public List<SovereigntyCampaignParticipant> getList(long contid, int maxresults, boolean reverse,
@@ -276,7 +276,7 @@ public class ModelSovWS {
           name = "systemID",
           defaultValue = "{ any: true }",
           value = "System ID selector") AttributeSelector systemID) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<SovereigntyMap>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<SovereigntyMap>() {
 
       @Override
       public List<SovereigntyMap> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -369,7 +369,7 @@ public class ModelSovWS {
           name = "vulnerableEndTime",
           defaultValue = "{ any: true }",
           value = "Vulnerable end time selector") AttributeSelector vulnerableEndTime) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<SovereigntyStructure>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<SovereigntyStructure>() {
 
       @Override
       public List<SovereigntyStructure> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,

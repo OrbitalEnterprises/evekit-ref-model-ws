@@ -5,7 +5,7 @@ import enterprises.orbital.evekit.model.ESIRefSyncEndpoint;
 import enterprises.orbital.evekit.model.alliance.Alliance;
 import enterprises.orbital.evekit.model.alliance.AllianceIcon;
 import enterprises.orbital.evekit.model.alliance.AllianceMemberCorporation;
-import enterprises.orbital.evekit.ws.HandlerUtil;
+import enterprises.orbital.evekit.ws.RefHandlerUtil;
 import enterprises.orbital.evekit.ws.ServiceError;
 import io.swagger.annotations.*;
 
@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
-import static enterprises.orbital.evekit.ws.HandlerUtil.handleStandardExpiry;
+import static enterprises.orbital.evekit.ws.RefHandlerUtil.handleStandardExpiry;
 
 @Path("/ws/v1/alliance")
 @Consumes({
@@ -117,7 +117,7 @@ public class ModelAllianceWS {
           name = "factionID",
           defaultValue = "{ any: true }",
           value = "Faction ID selector") AttributeSelector factionID) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<Alliance>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<Alliance>() {
 
       @Override
       public List<Alliance> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -190,7 +190,7 @@ public class ModelAllianceWS {
           name = "corporationID",
           defaultValue = "{ any: true }",
           value = "Member corporation ID selector") AttributeSelector corporationID) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<AllianceMemberCorporation>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<AllianceMemberCorporation>() {
 
       @Override
       public List<AllianceMemberCorporation> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,
@@ -261,7 +261,7 @@ public class ModelAllianceWS {
           name = "px128x128",
           defaultValue = "{ any: true }",
           value = "128x128 icon URL selector") AttributeSelector px128x128) {
-    return HandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new HandlerUtil.QueryCaller<AllianceIcon>() {
+    return RefHandlerUtil.handleStandardListRequest(at, contid, maxresults, reverse, new RefHandlerUtil.QueryCaller<AllianceIcon>() {
 
       @Override
       public List<AllianceIcon> getList(long contid, int maxresults, boolean reverse, AttributeSelector at,

@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class HandlerUtil {
-  private static final Logger log = Logger.getLogger(HandlerUtil.class.getName());
+public class RefHandlerUtil {
+  private static final Logger log = Logger.getLogger(RefHandlerUtil.class.getName());
 
   // Default max result size
   private static final String PROP_RESULT_LIMIT = "enterprises.orbital.evekit.ref_model_ws.max_results";
