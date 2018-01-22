@@ -94,7 +94,7 @@ public class RefHandlerUtil {
     maxresults = Math.min(PersistentProperty.getIntegerPropertyWithFallback(PROP_RESULT_LIMIT, DEF_RESULT_LIMIT), maxresults);
     try {
       List<A> results = query.getList(contid, maxresults, reverse, at, sels);
-      for (RefCachedData next : results) next.prepareDates();
+      for (RefCachedData next : results) next.prepareTransient();
       return ServiceUtil.finishRef(OrbitalProperties.getCurrentTime(), query.getExpiry(), results, request);
     } catch (NumberFormatException e) {
       return handleIllegalSelector(e);
